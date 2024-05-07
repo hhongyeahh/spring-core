@@ -4,6 +4,7 @@ import hello.core.Order.OrderService;
 import hello.core.Order.OrderServiceImpl;
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
+import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
@@ -23,19 +24,23 @@ public class AppConfig {
 //    }
 
     //AppConfig 리팩토링 후
+    // -> 역할과 구현 클래스가 한 눈에 들어옴
+    // MemoryMemberRepository의 중복을 제거하여, 이제 MemoryMemberRepository를 다른 구현체로 변경할 때, 한 부분만 변경하면 됨
     public MemberService memberService() {
         return new MemberServiceImpl(memberRepository());
-    }
-
-    public OrderService orderService(){
-        return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
     public MemberRepository memberRepository(){
         return new MemoryMemberRepository();
     }
 
+    public OrderService orderService(){
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
+    }
+
+
     public DiscountPolicy discountPolicy(){
-        return new FixDiscountPolicy();
+//        return new FixDiscountPolicy(); -> 다른 구현체로 변경할때 (배우 변경할때 이부분만 변경하면됨)
+        return new RateDiscountPolicy();
     }
 }
