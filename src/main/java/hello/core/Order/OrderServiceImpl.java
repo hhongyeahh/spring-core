@@ -32,4 +32,9 @@ public class OrderServiceImpl implements OrderService{
         int disountPrice = discountPolicy.discount(member, itemPrice);
         return new Order(memberId, itemName, itemPrice, disountPrice);
     }
+
+    //테스트 용도
+    public MemberRepository getMemberRepository(){
+        return memberRepository;
+    }
 }

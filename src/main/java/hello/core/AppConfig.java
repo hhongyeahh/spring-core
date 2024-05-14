@@ -32,14 +32,20 @@ public class AppConfig {
     // MemoryMemberRepository의 중복을 제거하여, 이제 MemoryMemberRepository를 다른 구현체로 변경할 때, 한 부분만 변경하면 됨
     @Bean //(name ="mmm") -> 이렇게 이름을 임의로 바꿀 수 있음
     public MemberService memberService() {
+        //1번
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
     @Bean
     public MemberRepository memberRepository(){
+        //2번? 3번?
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
     @Bean
     public OrderService orderService(){
+        //1번
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
