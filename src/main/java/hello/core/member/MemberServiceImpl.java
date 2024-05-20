@@ -1,5 +1,9 @@
 package hello.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberServiceImpl implements MemberService{
 
     //OCP, DIP 위반
@@ -8,6 +12,7 @@ public class MemberServiceImpl implements MemberService{
     //해결책 -> 인터페이스에만 의존하도록 변경
     private final MemberRepository memberRepository;
 
+    @Autowired // ac.getBean(MemberRepository.class)
     public MemberServiceImpl(MemberRepository memberRepository){
         this. memberRepository = memberRepository;
     }
